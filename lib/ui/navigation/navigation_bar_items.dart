@@ -1,0 +1,4 @@
+enum NavbarItem {
+  home,
+  profile,
+}

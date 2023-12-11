@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "392899401755",
+    "project_id": "visitor-mgnt-331be",
+    "storage_bucket": "visitor-mgnt-331be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392899401755:android:acbe3d2b3dd955e98e80be",
+        "android_client_info": {
+          "package_name": "com.aman.visitor_mgnt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ZAqJqyIgpLhKCY5_wTg2JWPlHzPMDEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
