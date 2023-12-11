@@ -139,6 +139,7 @@ class _UserSessionScreenState extends State<UserSessionScreen> {
               const Gap(50),
               FilledButton(
                 onPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   context.read<UserSessionCubit>().checkInUser(
                       email: _emailController.text.trim(),
                       fullName: _fullNameController.text.trim(),
@@ -199,98 +200,109 @@ class _UserSessionScreenState extends State<UserSessionScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              const Gap(30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
                 children: [
-                  const AutoSizeText('Full Name: ',
-                      maxFontSize: 20,
-                      minFontSize: 18,
-                      style: TextStyle(fontWeight: FontWeight.w600)),
-                  AutoSizeText(state.fullName,
-                      maxFontSize: 20,
-                      minFontSize: 18,
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AutoSizeText(
-                    'Email: ',
-                    maxFontSize: 20,
-                    minFontSize: 18,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                  const Gap(30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const AutoSizeText('Full Name: ',
+                          maxFontSize: 20,
+                          minFontSize: 18,
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                      AutoSizeText(state.fullName,
+                          maxFontSize: 20,
+                          minFontSize: 18,
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
+                          )),
+                    ],
                   ),
-                  AutoSizeText(state.emailId,
-                      maxFontSize: 20,
-                      minFontSize: 18,
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AutoSizeText(
-                    'Contact Number: ',
-                    maxFontSize: 20,
-                    minFontSize: 18,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const AutoSizeText(
+                        'Email: ',
+                        maxFontSize: 20,
+                        minFontSize: 18,
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      AutoSizeText(state.emailId,
+                          maxFontSize: 20,
+                          minFontSize: 18,
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
+                          )),
+                    ],
                   ),
-                  AutoSizeText(state.conNumber,
-                      maxFontSize: 20,
-                      minFontSize: 18,
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AutoSizeText(
-                    'Role: ',
-                    maxFontSize: 20,
-                    minFontSize: 18,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const AutoSizeText(
+                        'Contact Number: ',
+                        maxFontSize: 20,
+                        minFontSize: 18,
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      AutoSizeText(state.conNumber,
+                          maxFontSize: 20,
+                          minFontSize: 18,
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
+                          )),
+                    ],
                   ),
-                  AutoSizeText(state.extUserType?.label ?? 'N/A',
-                      maxFontSize: 20,
-                      minFontSize: 18,
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AutoSizeText(
-                    'Checked In at: ',
-                    maxFontSize: 20,
-                    minFontSize: 18,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const AutoSizeText(
+                        'Role: ',
+                        maxFontSize: 20,
+                        minFontSize: 18,
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      AutoSizeText(state.extUserType?.label ?? 'N/A',
+                          maxFontSize: 20,
+                          minFontSize: 18,
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
+                          )),
+                    ],
                   ),
-                  AutoSizeText(
-                    (state.checkedInTime != null)
-                        ? yMMMMdjmFormatter(state.checkedInTime!)
-                        : '--',
-                    maxFontSize: 20,
-                    minFontSize: 18,
-                    style: const TextStyle(
-                      fontStyle: FontStyle.italic,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: const AutoSizeText(
+                            'Checked In at: ',
+                            maxFontSize: 20,
+                            minFontSize: 18,
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Expanded(
+                          child: AutoSizeText(
+                            (state.checkedInTime != null)
+                                ? yMMMMdjmFormatter(state.checkedInTime!)
+                                : '--',
+                            maxFontSize: 20,
+                            minFontSize: 15,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
         const Gap(50),

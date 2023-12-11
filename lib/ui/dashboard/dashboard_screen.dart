@@ -14,7 +14,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  DateTime today = DateTime.now();
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -68,19 +67,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                   pageSize: 20,
                   emptyBuilder: (context) => SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      child: const Center(
-                        child: AutoSizeText(
-                          'No activity found',
-                          minFontSize: 10,
-                          maxFontSize: 30,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w600),
-                          maxLines: 1,
-                        ),
-                      )),
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: const Center(
+                      child: AutoSizeText(
+                        'No activity found',
+                        minFontSize: 10,
+                        maxFontSize: 30,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w600),
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
                   loadingBuilder: (_) => const LinearProgressIndicator(),
                   errorBuilder: (context, error, stackTrace) =>
                       Text(error.toString()),
@@ -99,6 +99,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _dateContainer(DateTime date) {
+
+    DateTime today = DateTime.now();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -114,8 +116,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
         GestureDetector(
-          onTap: () => _selectDate(context),
+          onTap: () => _selectDate(context, date, today),
           child: AutoSizeText(
+            // date.isSameDate(DateTime.now()) ? 'Today': yMMMdFormatter(date),
             yMMMdFormatter(date),
             minFontSize: 15,
             maxFontSize: 30,
@@ -300,11 +303,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context, DateTime selectedDate, DateTime today) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: today.subtract(const Duration(days: 1000)),
+      firstDate: DateTime.now().subtract(const Duration(days: 1000)),
       lastDate: today,
     );
     if (picked != null && picked != selectedDate) {

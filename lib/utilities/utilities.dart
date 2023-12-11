@@ -9,7 +9,7 @@ debugLog(Object obj) {
 
 //ex: July 10, 1996
 String yMMMdFormatter(DateTime dateTime){
-  return DateFormat.yMMMMd('en_US').format(dateTime);
+  return DateFormat.yMMMd('en_US').format(dateTime);
 }
 
 //ex: 07-1996
@@ -24,7 +24,7 @@ String mmddyyyyFormatter(DateTime dateTime){
 
 //ex: July 10, 1996 5:08 PM
 String yMMMMdjmFormatter(DateTime dateTime) {
-  return DateFormat.yMMMMd('en_US').add_jm().format(dateTime);
+  return DateFormat.yMMMd('en_US').add_jm().format(dateTime);
 }
 
 extension DateOnlyCompare on DateTime {

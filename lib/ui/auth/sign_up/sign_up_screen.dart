@@ -90,6 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(20)),
                         child: FilledButton(
                           onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
                             context.read<SignUpCubit>().signUp(
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim(),

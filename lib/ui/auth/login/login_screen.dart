@@ -98,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: FilledButton(
                       onPressed: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const SignUpScreen(),

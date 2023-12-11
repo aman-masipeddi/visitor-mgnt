@@ -6,7 +6,6 @@ import 'package:visitor_mgnt/out_ports/firebase_firestore_port.dart';
 import 'package:visitor_mgnt/ui/user-ext/user_session_screen.dart';
 
 import 'package:visitor_mgnt/out_ports/app_prefs.dart';
-import 'package:visitor_mgnt/utilities/utilities.dart';
 
 abstract interface class CheckInExtUserUseCase {
   Future<Option<String>> execute(

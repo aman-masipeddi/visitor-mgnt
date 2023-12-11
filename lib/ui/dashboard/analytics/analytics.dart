@@ -19,14 +19,6 @@ class AnalyticsView extends StatelessWidget {
         child: BlocConsumer<AnalyticsViewCubit, AnalyticsViewState>(
           listener: (context, state) {},
           builder: (context, state) {
-            final List<PieChartValues> pieChartValues = state
-                .analyticsMap.entries
-                .map((entry) => PieChartValues(
-                    color: _userTypeColorsMap[entry.key]!,
-                    value: entry.value.toDouble(),
-                    label: entry.key.label))
-                .toList();
-
             return Column(
               children: [
                 if (state.isLoading) const LinearProgressIndicator(),
@@ -36,14 +28,7 @@ class AnalyticsView extends StatelessWidget {
                     children: [
                       if (state.selectedDateTime != null)
                         _dateContainer(context, state.selectedDateTime!),
-                      const Gap(20),
-                      AutoSizeText('Total Users: ${state.totalUsers}', minFontSize: 15,
-                        maxFontSize: 30,
-                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
-                      ),
-                      const Gap(20),
-                      if(state.totalUsers > 0) PieChartWidget(
-                          pieChartValues: pieChartValues, radius: 80),
+                      _buildView(context, state),
                     ],
                   ),
                 ),
@@ -99,6 +84,48 @@ class AnalyticsView extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Widget _buildView(BuildContext context, AnalyticsViewState state) {
+    if(state.totalUsers > 0) {
+
+      final List<PieChartValues> pieChartValues = state
+          .analyticsMap.entries
+          .map((entry) => PieChartValues(
+          color: _userTypeColorsMap[entry.key]!,
+          value: entry.value.toDouble(),
+          label: entry.key.label))
+          .toList();
+
+      return Column(
+        children: [
+          const Gap(20),
+          AutoSizeText('Total Users: ${state.totalUsers}', minFontSize: 15,
+            maxFontSize: 30,
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+          ),
+          const Gap(20),
+          if(state.totalUsers > 0) PieChartWidget(
+              pieChartValues: pieChartValues, radius: 80),
+        ],
+      );
+    } else {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: const Center(
+          child: AutoSizeText(
+            'No activity found',
+            minFontSize: 10,
+            maxFontSize: 30,
+            style: TextStyle(
+                fontSize: 20,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w600),
+            maxLines: 1,
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _selectDate(
